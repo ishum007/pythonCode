@@ -1,0 +1,109 @@
+import random
+import string
+
+def random_user_id():
+    characters = string.ascii_letters + string.digits
+    user_id = ''.join(random.choice(characters) for _ in range(6))
+    return user_id
+
+print(random_user_id())
+
+import random
+import string
+
+def user_id_gen_by_user():
+    num_characters = int(input("Enter number of characters: "))
+    num_ids = int(input("Enter number of IDs: "))
+
+    characters = string.ascii_letters + string.digits
+
+    for _ in range(num_ids):
+        user_id = ''.join(random.choice(characters) for _ in range(num_characters))
+        print(user_id)
+
+user_id_gen_by_user()
+
+import random
+
+def rgb_color_gen():
+    r = random.randint(0, 255)
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
+    return f"rgb({r},{g},{b})"
+
+print(rgb_color_gen())
+
+import random
+
+def list_of_hexa_colors(n):
+    colors = []
+
+    for _ in range(n):
+        color = "#"
+        for _ in range(6):
+            color += random.choice("0123456789abcdef")
+        colors.append(color)
+
+    return colors
+
+print(list_of_hexa_colors(3))
+
+import random
+
+def list_of_rgb_colors(n):
+    colors = []
+
+    for _ in range(n):
+        r = random.randint(0, 255)
+        g = random.randint(0, 255)
+        b = random.randint(0, 255)
+        colors.append(f"rgb({r}, {g}, {b})")
+
+    return colors
+
+print(list_of_rgb_colors(3))
+
+import random
+
+def generate_colors(color_type, n):
+    colors = []
+
+    if color_type == "hexa":
+        for _ in range(n):
+            color = "#"
+            for _ in range(6):
+                color += random.choice("0123456789abcdef")
+            colors.append(color)
+
+    elif color_type == "rgb":
+        for _ in range(n):
+            r = random.randint(0, 255)
+            g = random.randint(0, 255)
+            b = random.randint(0, 255)
+            colors.append(f"rgb({r}, {g}, {b})")
+
+    return colors
+
+print(generate_colors("hexa", 3))
+print(generate_colors("hexa", 1))
+print(generate_colors("rgb", 3))
+print(generate_colors("rgb", 1))
+
+import random
+
+def shuffle_list(lst):
+    shuffled = lst.copy()
+    random.shuffle(shuffled)
+    return shuffled
+
+# Example
+my_list = [1, 2, 3, 4, 5, 6]
+print(shuffle_list(my_list))
+
+import random
+
+def unique_random_numbers():
+    return random.sample(range(10), 7)
+
+# Example
+print(unique_random_numbers())
