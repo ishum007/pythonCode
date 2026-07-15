@@ -1,0 +1,282 @@
+def count_lines_words(filename):
+    with open(filename, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+
+    line_count = len(lines)
+    word_count = sum(len(line.split()) for line in lines)
+
+    return {
+        "Lines": line_count,
+        "Words": word_count
+    }
+
+
+files = [
+    "./data/obama_speech.txt",
+    "./data/michelle_obama_speech.txt",
+    "./data/donald_speech.txt",
+    "./data/melina_trump_speech.txt"
+]
+
+for file in files:
+    print(file)
+    print(count_lines_words(file))
+import json
+from collections import Counter
+
+def most_spoken_languages(filename, n):
+    with open(filename, "r", encoding="utf-8") as file:
+        countries = json.load(file)
+
+    languages = []
+
+    for country in countries:
+        languages.extend(country["languages"])
+
+    counter = Counter(languages)
+
+    return counter.most_common(n)
+
+
+print(most_spoken_languages("./data/countries_data.json",10))
+print(most_spoken_languages("./data/countries_data.json",3))
+import json
+
+def most_populated_countries(filename, n):
+
+    with open(filename, "r", encoding="utf-8") as file:
+        countries = json.load(file)
+
+    countries = sorted(
+        countries,
+        key=lambda x: x["population"],
+        reverse=True
+    )
+
+    result = []
+
+    for country in countries[:n]:
+        result.append({
+            "country": country["name"],
+            "population": country["population"]
+        })
+
+    return result
+
+
+print(most_populated_countries("./data/countries_data.json",10))
+print(most_populated_countries("./data/countries_data.json",3))
+import re
+
+def extract_emails(filename):
+
+    with open(filename, "r", encoding="utf-8") as file:
+        text = file.read()
+
+    emails = re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text)
+
+    return emails
+
+
+emails = extract_emails("./data/email_exchange_big.txt")
+
+print(emails)
+print("Total Emails:", len(emails))
+import re
+from collections import Counter
+
+def find_most_common_words(source, n):
+
+    try:
+        with open(source, "r", encoding="utf-8") as file:
+            text = file.read()
+    except FileNotFoundError:
+        text = source
+
+    words = re.findall(r"\b\w+\b", text.lower())
+
+    counter = Counter(words)
+
+    return [(count, word) for word, count in counter.most_common(n)]
+
+
+print(find_most_common_words("sample.txt",10))
+print(find_most_common_words("sample.txt",5))
+speechs = [
+    "./data/obama_speech.txt",
+    "./data/michelle_obama_speech.txt",
+    "./data/donald_speech.txt",
+    "./data/melina_trump_speech.txt"
+]
+
+for speech in speechs:
+    print(speech)
+    print(find_most_common_words(speech,10))
+    import re
+
+def clean_text(text):
+
+    text = text.lower()
+    text = re.sub(r"[^a-z\s]", "", text)
+
+    return text
+
+
+def remove_stop_words(text):
+
+    with open("./data/stop_words.py", "r") as file:
+        stop_words = eval(file.read().split("=")[1])
+
+    words = text.split()
+
+    filtered = [word for word in words if word not in stop_words]
+
+    return filtered
+
+
+def check_text_similarity(file1, file2):
+
+    with open(file1, "r", encoding="utf-8") as f:
+        text1 = clean_text(f.read())
+
+    with open(file2, "r", encoding="utf-8") as f:
+        text2 = clean_text(f.read())
+
+    words1 = set(remove_stop_words(text1))
+    words2 = set(remove_stop_words(text2))
+
+    common = words1.intersection(words2)
+
+    similarity = (len(common) / len(words1.union(words2))) * 100
+
+    return round(similarity,2)
+
+
+print(check_text_similarity(
+    "./data/michelle_obama_speech.txt",
+    "./data/melina_trump_speech.txt"
+),"%")
+print(find_most_common_words("./data/romeo_and_juliet.txt",10))
+import csv
+import re
+
+python_count = 0
+javascript_count = 0
+java_count = 0
+
+with open("./data/hacker_news.csv", encoding="utf-8") as file:
+
+    reader = csv.reader(file)
+
+    next(reader)
+
+    for row in reader:
+
+        title = row[1]
+
+        if re.search(r"\bpython\b", title, re.IGNORECASE):
+            python_count += 1
+
+        if re.search(r"\bjavascript\b", title, re.IGNORECASE):
+            javascript_count += 1
+
+        if re.search(r"\bjava\b", title, re.IGNORECASE) and not re.search(r"\bjavascript\b", title, re.IGNORECASE):
+            java_count += 1
+
+print("Python:", python_count)
+
+print("JavaScript:", javascript_count)
+
+print("Java (excluding JavaScript):", java_count)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
